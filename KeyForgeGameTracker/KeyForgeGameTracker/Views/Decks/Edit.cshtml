@@ -1,0 +1,136 @@
+﻿@model KeyForgeGameTracker.Models.Deck
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Deck</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div id="eg-step6-section" class="card form-section subform-section">
+                <div id="eg-step6-header" class="card-header d-flex form-section-header">
+                    <div class="flex-fill align-self-center">
+                        <span class="h5">New Deck</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label asp-for="KeyForgeId" class="control-label"></label>
+                            <input asp-for="KeyForgeId" class="form-control" />
+                            <span asp-validation-for="KeyForgeId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="Alias" class="control-label"></label>
+                            <input asp-for="Alias" class="form-control" />
+                            <span asp-validation-for="Alias" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MyNotes" class="control-label"></label>
+                        <input asp-for="MyNotes" class="form-control" />
+                        <span asp-validation-for="MyNotes" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div id="eg-step6-section" class="card form-section subform-section">
+                <div id="eg-step6-header" class="card-header d-flex form-section-header">
+                    <div class="flex-fill align-self-center">
+                        <span class="h5">Auto Fields</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="Expansion" class="control-label"></label>
+                            <input asp-for="Expansion" class="form-control" />
+                            <span asp-validation-for="Expansion" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="PowerLevel" class="control-label"></label>
+                            <input asp-for="PowerLevel" class="form-control" />
+                            <span asp-validation-for="PowerLevel" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label asp-for="Chains" class="control-label"></label>
+                            <input asp-for="Chains" class="form-control" />
+                            <span asp-validation-for="Chains" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="Wins" class="control-label"></label>
+                            <input asp-for="Wins" class="form-control" />
+                            <span asp-validation-for="Wins" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="Loses" class="control-label"></label>
+                            <input asp-for="Loses" class="form-control" />
+                            <span asp-validation-for="Loses" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Notes" class="control-label"></label>
+                        <input asp-for="Notes" class="form-control" />
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="eg-step6-section" class="card form-section subform-section">
+                <div id="eg-step6-header" class="card-header d-flex form-section-header">
+                    <div class="flex-fill align-self-center">
+                        <span class="h5">System Fields</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="CreatedDate" class="control-label"></label>
+                        <input asp-for="CreatedDate" class="form-control" />
+                        <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UpdatedDate" class="control-label"></label>
+                        <input asp-for="UpdatedDate" class="form-control" />
+                        <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UpdatedBy" class="control-label"></label>
+                        <input asp-for="UpdatedBy" class="form-control" />
+                        <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreatedBy" class="control-label"></label>
+                        <input asp-for="CreatedBy" class="form-control" />
+                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

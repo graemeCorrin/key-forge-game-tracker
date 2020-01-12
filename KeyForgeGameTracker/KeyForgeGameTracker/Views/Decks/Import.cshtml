@@ -1,0 +1,33 @@
+﻿@model KeyForgeGameTracker.Models.Deck
+
+@{
+    ViewData["Title"] = "Import";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Import</h1>
+
+<h4>Deck</h4>
+<hr />
+<div class="row">
+    <div class="">
+        <form asp-action="Import">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group col">
+                <label asp-for="KeyForgeId" class="control-label"></label>
+                <input asp-for="KeyForgeId" class="form-control" />
+                <span asp-validation-for="KeyForgeId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Import" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

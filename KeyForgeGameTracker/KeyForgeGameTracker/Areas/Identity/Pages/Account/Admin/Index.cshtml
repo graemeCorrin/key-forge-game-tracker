@@ -1,0 +1,23 @@
+﻿@page
+@model KeyForgeGameTracker.Areas.Identity.Pages.Account.Admin.IndexModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h2>Manage Users</h2>
+
+<p>
+    <a asp-area="Identity" asp-page="/Account/Admin/Register">Register New User</a>
+</p>
+
+<br />
+<h4>Admin Users</h4>
+@await Html.PartialAsync("_UserListPartial", Model.AdminUsers)
+
+<br />
+<h4>Standard Users</h4>
+@await Html.PartialAsync("_UserListPartial", Model.StandardUsers)
+
+<br/>
+<h4>Read-Only Users</h4>
+@await Html.PartialAsync("_UserListPartial", Model.ReadOnlyUsers)

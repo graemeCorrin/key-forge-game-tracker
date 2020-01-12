@@ -1,0 +1,144 @@
+﻿@model IEnumerable<KeyForgeGameTracker.Models.Card>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KeyForgeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrontImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Traits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Power)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Armor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rarity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlavorText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Expansion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsMaverick)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAnomaly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KeyForgeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrontImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Traits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Power)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Armor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rarity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlavorText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expansion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMaverick)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAnomaly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

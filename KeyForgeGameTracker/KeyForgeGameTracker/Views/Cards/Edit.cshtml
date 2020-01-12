@@ -1,0 +1,122 @@
+﻿@model KeyForgeGameTracker.Models.Card
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Card</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="KeyForgeId" class="control-label"></label>
+                <input asp-for="KeyForgeId" class="form-control" />
+                <span asp-validation-for="KeyForgeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardType" class="control-label"></label>
+                <input asp-for="CardType" class="form-control" />
+                <span asp-validation-for="CardType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FrontImage" class="control-label"></label>
+                <input asp-for="FrontImage" class="form-control" />
+                <span asp-validation-for="FrontImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardText" class="control-label"></label>
+                <input asp-for="CardText" class="form-control" />
+                <span asp-validation-for="CardText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Traits" class="control-label"></label>
+                <input asp-for="Traits" class="form-control" />
+                <span asp-validation-for="Traits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amber" class="control-label"></label>
+                <input asp-for="Amber" class="form-control" />
+                <span asp-validation-for="Amber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Power" class="control-label"></label>
+                <input asp-for="Power" class="form-control" />
+                <span asp-validation-for="Power" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Armor" class="control-label"></label>
+                <input asp-for="Armor" class="form-control" />
+                <span asp-validation-for="Armor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rarity" class="control-label"></label>
+                <input asp-for="Rarity" class="form-control" />
+                <span asp-validation-for="Rarity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FlavorText" class="control-label"></label>
+                <input asp-for="FlavorText" class="form-control" />
+                <span asp-validation-for="FlavorText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardNumber" class="control-label"></label>
+                <input asp-for="CardNumber" class="form-control" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Expansion" class="control-label"></label>
+                <input asp-for="Expansion" class="form-control" />
+                <span asp-validation-for="Expansion" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsMaverick" /> @Html.DisplayNameFor(model => model.IsMaverick)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAnomaly" /> @Html.DisplayNameFor(model => model.IsAnomaly)
+                </label>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedDate" class="control-label"></label>
+                <input asp-for="UpdatedDate" class="form-control" />
+                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedBy" class="control-label"></label>
+                <input asp-for="UpdatedBy" class="form-control" />
+                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
