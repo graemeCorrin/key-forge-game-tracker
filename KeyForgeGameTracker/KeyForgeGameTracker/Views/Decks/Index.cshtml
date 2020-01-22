@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KeyForgeGameTracker.Models.Deck>
+﻿@model KeyForgeGameTracker.ViewModels.DeckIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,101 +14,110 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.KeyForgeId)
+                @Html.DisplayNameFor(model => model.Decks.First().KeyForgeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Decks.First().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Expansion)
+                @Html.DisplayNameFor(model => model.Decks.First().Expansion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PowerLevel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Chains)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Wins)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Loses)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alias)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MyNotes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
+                @Html.DisplayNameFor(model => model.Decks.First().Alias)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.KeyForgeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Expansion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PowerLevel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Chains)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Wins)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Loses)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alias)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MyNotes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Decks)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["DeckId"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.KeyForgeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Expansion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alias)
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">Select</a>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+@if (Model.Houses != null)
+{
+    <h3>Houses</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Houses.First().Name)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Houses)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@if (Model.Cards != null)
+{
+    <h3>Houses</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cards.First().Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cards.First().House)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cards.First().CardType)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cards)
+            {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.House.Name
+                </td>
+                <td>
+                    @item.CardType
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

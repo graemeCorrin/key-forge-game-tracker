@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
 
 namespace KeyForgeGameTracker.Data
 {
@@ -78,6 +81,58 @@ namespace KeyForgeGameTracker.Data
                 .HasOne(xy => xy.House)
                 .WithMany(y => y.DeckHouses)
                 .HasForeignKey(xy => xy.HouseId);
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            OnBeforeSaving();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            OnBeforeSaving();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void OnBeforeSaving()
+        {
+            var entries = ChangeTracker.Entries();
+            foreach (var entry in entries)
+            {
+                if (entry.Entity is KfgtTable trackable)
+                {
+                    var now = DateTime.UtcNow;
+                    var user = GetCurrentUser();
+                    switch (entry.State)
+                    {
+                        case EntityState.Modified:
+                            trackable.UpdatedDate = now;
+                            trackable.UpdatedBy = user;
+                            break;
+
+                        case EntityState.Added:
+                            trackable.CreatedDate = now;
+                            trackable.CreatedBy = user;
+                            trackable.UpdatedDate = now;
+                            trackable.UpdatedBy = user;
+                            break;
+                    }
+                }
+            }
+        }
+
+        private string GetCurrentUser()
+        {
+            var authenticatedUserName = "Unknown";
+
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext != null)
+            {
+                authenticatedUserName = httpContext.User.Identity.Name;
+            }
+
+            return authenticatedUserName;
         }
 
     }

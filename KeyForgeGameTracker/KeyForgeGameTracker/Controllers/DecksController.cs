@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KeyForgeGameTracker.Models;
 using KeyForgeGameTracker.Data;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
 using KeyForgeGameTracker.Services;
+using KeyForgeGameTracker.ViewModels;
 
 namespace KeyForgeGameTracker.Controllers
 {
@@ -25,9 +21,32 @@ namespace KeyForgeGameTracker.Controllers
         }
 
         // GET: Decks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.Deck.ToListAsync());
+            var viewModel = new DeckIndexViewModel();
+            viewModel.Decks = await _context.Deck
+                .Include(x => x.DeckHouses)
+                    .ThenInclude(x => x.House)
+                .Include(x => x.DeckCards)
+                    .ThenInclude(x => x.Card)
+                        .ThenInclude(x => x.House)
+                .AsNoTracking()
+                .ToListAsync();
+
+
+            if (id != null)
+            {
+                ViewData["DeckId"] = id.Value;
+                Deck deck = viewModel.Decks
+                    .Where(i => i.Id == id.Value)
+                    .Single();
+
+                viewModel.Houses = deck.DeckHouses.Select(x => x.House);
+                viewModel.Cards = deck.DeckCards.Select(x => x.Card);
+            }
+
+
+            return View(viewModel);
         }
 
         // GET: Decks/Details/5
@@ -39,6 +58,11 @@ namespace KeyForgeGameTracker.Controllers
             }
 
             var deck = await _context.Deck
+                .Include(x => x.DeckHouses)
+                    .ThenInclude(x => x.House)
+                .Include(x => x.DeckCards)
+                    .ThenInclude(x => x.Card)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (deck == null)
             {
