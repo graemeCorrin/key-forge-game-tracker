@@ -127,3 +127,7 @@ body {
 #sidebar-body a {
     padding: 0.5rem 1.25rem;
 }
+
+tr.selected {
+    background-color: palegreen;
+}

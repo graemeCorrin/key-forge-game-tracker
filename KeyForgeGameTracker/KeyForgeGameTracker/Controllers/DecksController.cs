@@ -83,7 +83,7 @@ namespace KeyForgeGameTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Import([Bind("Id,KeyForgeId,Alias,MyNotes")] Deck deck)
+        public async Task<IActionResult> Import([Bind("KeyForgeId")] Deck deck)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +96,7 @@ namespace KeyForgeGameTracker.Controllers
                 else
                 {
                     _context.Add(deck);
+                    await _importService.ImportDeckAsync(deck);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }

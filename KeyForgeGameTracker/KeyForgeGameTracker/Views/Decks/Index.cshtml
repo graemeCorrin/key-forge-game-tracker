@@ -5,119 +5,101 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>My Decks</h1>
 
 <p>
     <a asp-action="Import">Import New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Decks.First().KeyForgeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Decks.First().Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Decks.First().Expansion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Decks.First().Alias)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Decks)
-        {
-            string selectedRow = "";
-            if (item.Id == (int?)ViewData["DeckId"])
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.KeyForgeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Expansion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Alias)
-                </td>
-                <td>
-                    <a asp-action="Index" asp-route-id="@item.Id">Select</a>
-                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-
-@if (Model.Houses != null)
-{
-    <h3>Houses</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Houses.First().Name)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Houses)
-            {
+<div class="row">
+    <div class="col-4">
+        <table id="deck-table" class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @item.Name
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Decks.First().Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Decks.First().Expansion)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var deck in Model.Decks)
+                {
+                    string selectedRow = "";
+                    if (deck.Id == (int?)ViewData["DeckId"])
+                    {
+                        selectedRow = "selected";
+                    }
+                    <tr class="@selectedRow">
+                        <td>
+                            @Html.DisplayFor(modelItem => deck.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => deck.Expansion)
+                        </td>
+                        <td>
+                            <a asp-action="Index" asp-route-id="@deck.Id">Select</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-8">
+
+        @if (Model.Houses == null)
+        {
+            <label>No Deck Selected</label>
+        }
+        else
+        {
+
+            <a asp-action="Edit" asp-route-id="@ViewData["DeckId"]">Edit</a> <text>|</text>
+            <a asp-action="Details" asp-route-id="@ViewData["DeckId"]">Details</a> <text>|</text>
+            <a asp-action="Delete" asp-route-id="@ViewData["DeckId"]">Delete</a>
+
+            <div class="row">
+                @foreach (var house in Model.Houses)
+                {
+                    <div class="col">
+                        <img src="@house.Image" />
+                    </div>
+                }
+            </div>
 
 
-@if (Model.Cards != null)
-{
-    <h3>Houses</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cards.First().Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cards.First().House)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cards.First().CardType)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Cards)
-            {
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.House.Name
-                </td>
-                <td>
-                    @item.CardType
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-}
+
+            <div class="row">
+
+                @foreach (var house in Model.Houses)
+                {
+                    <div class="col">
+
+                        
+                        <table class="table">
+                            <tbody>
+
+                                @foreach (var card in Model.Cards.Where(x => x.HouseId == house.Id))
+                                {
+                                <tr>
+                                    <td>
+                                        <a href="@card.FrontImage">@card.Title</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        
+
+
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+</div>

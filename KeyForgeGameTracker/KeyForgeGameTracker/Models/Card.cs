@@ -10,7 +10,7 @@ namespace KeyForgeGameTracker.Models
         [Required]
         public Guid KeyForgeId { get; set; }
         public string Title { get; set; }
-        public House House { get; set; }
+        
         public string CardType { get; set; }
         public string FrontImage { get; set; }
         public string CardText { get; set; }
@@ -24,6 +24,14 @@ namespace KeyForgeGameTracker.Models
         public int? Expansion { get; set; }
         public bool IsMaverick { get; set; }
         public bool IsAnomaly { get; set; }
+
+
+
+
+        [ForeignKey("HouseId")]
+        public House House { get; set; }
+        public int? HouseId { get; set; }
+
 
 
         public List<DeckCard> DeckCards { get; set; }
