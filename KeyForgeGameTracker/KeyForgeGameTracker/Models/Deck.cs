@@ -24,7 +24,9 @@ namespace KeyForgeGameTracker.Models
 
         #region GameTracker Fields
 
+        [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
+        public int? AppUserId { get; set; }
         public string Alias { get; set; }
         public string MyNotes { get; set; }
 

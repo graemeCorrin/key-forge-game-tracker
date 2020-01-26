@@ -7,17 +7,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace KeyForgeGameTracker.Data
 {
     public class KeyForgeContext : IdentityDbContext<AppUser, AppRole, int>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        //private UserManager<AppUser> _userManager;
 
-        public KeyForgeContext(DbContextOptions<KeyForgeContext> options, IHttpContextAccessor httpContextAccessor)
+        public KeyForgeContext(DbContextOptions<KeyForgeContext> options,
+            IHttpContextAccessor httpContextAccessor) //,
+            //UserManager<AppUser> userManager)
             : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
+            //_userManager = userManager;
         }
 
         public DbSet<Game> Game { get; set; }
@@ -103,7 +109,7 @@ namespace KeyForgeGameTracker.Data
                 if (entry.Entity is KfgtTable trackable)
                 {
                     var now = DateTime.UtcNow;
-                    var user = GetCurrentUser();
+                    var user = GetCurrentUsername();
                     switch (entry.State)
                     {
                         case EntityState.Modified:
@@ -119,10 +125,15 @@ namespace KeyForgeGameTracker.Data
                             break;
                     }
                 }
+
+                if (entry.Entity is Deck deck && entry.State == EntityState.Added)
+                {
+                    deck.AppUserId = GetCurrentUserId();
+                }
             }
         }
 
-        private string GetCurrentUser()
+        private string GetCurrentUsername()
         {
             var authenticatedUserName = "Unknown";
 
@@ -133,6 +144,19 @@ namespace KeyForgeGameTracker.Data
             }
 
             return authenticatedUserName;
+        }
+
+        private int? GetCurrentUserId()
+        {
+            try
+            {
+                var id = Int32.Parse(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                return id;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
     }

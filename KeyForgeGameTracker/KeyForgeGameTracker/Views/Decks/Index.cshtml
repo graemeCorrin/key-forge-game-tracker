@@ -19,9 +19,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Decks.First().Name)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Decks.First().Expansion)
-                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,15 +30,15 @@
                     {
                         selectedRow = "selected";
                     }
-                    <tr class="@selectedRow">
+                    <tr class="@selectedRow" id="@deck.Id">
                         <td>
                             @Html.DisplayFor(modelItem => deck.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => deck.Expansion)
-                        </td>
-                        <td>
-                            <a asp-action="Index" asp-route-id="@deck.Id">Select</a>
+                            @foreach (var house in deck.DeckHouses.Select(x => x.House))
+                            {
+                                <img src="@house.Image" height="20" width="20" />
+                            }
                         </td>
                     </tr>
                 }
@@ -51,55 +48,36 @@
 
     <div class="col-8">
 
-        @if (Model.Houses == null)
-        {
-            <label>No Deck Selected</label>
-        }
-        else
-        {
-
-            <a asp-action="Edit" asp-route-id="@ViewData["DeckId"]">Edit</a> <text>|</text>
-            <a asp-action="Details" asp-route-id="@ViewData["DeckId"]">Details</a> <text>|</text>
-            <a asp-action="Delete" asp-route-id="@ViewData["DeckId"]">Delete</a>
-
-            <div class="row">
-                @foreach (var house in Model.Houses)
-                {
-                    <div class="col">
-                        <img src="@house.Image" />
-                    </div>
-                }
-            </div>
-
-
-
-            <div class="row">
-
-                @foreach (var house in Model.Houses)
-                {
-                    <div class="col">
-
-                        
-                        <table class="table">
-                            <tbody>
-
-                                @foreach (var card in Model.Cards.Where(x => x.HouseId == house.Id))
-                                {
-                                <tr>
-                                    <td>
-                                        <a href="@card.FrontImage">@card.Title</a>
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                        
-
-
-                    </div>
-                }
-            </div>
-        }
+        <div id="partial">
+            No Deck Selected
+        </div>
 
     </div>
 </div>
+
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $("#deck-table tr").click(function (e) {
+
+            $.ajax({
+                url: '@Url.Action("Details", "Decks")',
+                type: 'GET',
+                data: { id: e.currentTarget.id },
+                success: function (result) {
+                    $("#deck-table tr").removeClass('selected');
+                    $("#deck-table tr#" + e.currentTarget.id).addClass('selected');
+                    $("#partial").html(result);
+                }
+            });
+
+        });
+    </script>
+
+}
+
+
+

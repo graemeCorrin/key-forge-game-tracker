@@ -62,6 +62,7 @@ namespace KeyForgeGameTracker.Controllers
                     .ThenInclude(x => x.House)
                 .Include(x => x.DeckCards)
                     .ThenInclude(x => x.Card)
+                .Include(x => x.AppUser)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (deck == null)

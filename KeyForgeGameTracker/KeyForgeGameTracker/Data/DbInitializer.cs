@@ -14,7 +14,7 @@ namespace KeyForgeGameTracker.Data
         public static async Task InitializeAsync(IServiceProvider serviceProvider)
         {
             using (var context = new KeyForgeContext(serviceProvider.GetRequiredService<DbContextOptions<KeyForgeContext>>(),
-                                                    serviceProvider.GetRequiredService<IHttpContextAccessor>()))
+                                                     serviceProvider.GetRequiredService<IHttpContextAccessor>()))
             using (var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>())
             {
 
