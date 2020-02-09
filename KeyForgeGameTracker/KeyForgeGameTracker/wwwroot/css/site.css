@@ -138,3 +138,10 @@ tr.selected {
 .deck-col:not(:last-child) {
     border-right: 1px solid;
 }
+
+
+/* Deck page
+ -------------------------------------------*/
+.container {
+    max-width: 1340px;
+}
