@@ -70,7 +70,7 @@ namespace KeyForgeGameTracker.Controllers
                 return NotFound();
             }
 
-            return View(deck);
+            return PartialView(deck);
         }
 
         // GET: Decks/Import

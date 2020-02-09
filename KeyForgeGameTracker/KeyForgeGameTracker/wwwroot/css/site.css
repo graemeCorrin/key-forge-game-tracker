@@ -131,3 +131,10 @@ body {
 tr.selected {
     background-color: palegreen;
 }
+
+/* Deck page
+ -------------------------------------------*/
+
+.deck-col:not(:last-child) {
+    border-right: 1px solid;
+}
