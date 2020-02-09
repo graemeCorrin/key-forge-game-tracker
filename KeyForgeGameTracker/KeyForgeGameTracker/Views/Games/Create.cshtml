@@ -9,53 +9,100 @@
 
 <h4>Game</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="GameDate" class="control-label"></label>
-                <input asp-for="GameDate" class="form-control" />
-                <span asp-validation-for="GameDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comments" class="control-label"></label>
-                <input asp-for="Comments" class="form-control" />
-                <span asp-validation-for="Comments" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Swap" /> @Html.DisplayNameFor(model => model.Swap)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedDate" class="control-label"></label>
-                <input asp-for="UpdatedDate" class="form-control" />
-                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedBy" class="control-label"></label>
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="GameDate" class="control-label"></label>
+            <input asp-for="GameDate" class="form-control" />
+            <span asp-validation-for="GameDate" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check col">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Swap" /> @Html.DisplayNameFor(model => model.Swap)
+            </label>
+        </div>
     </div>
-</div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label asp-for="Comments" class="control-label"></label>
+            <input asp-for="Comments" class="form-control" />
+            <span asp-validation-for="Comments" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="WinningPlayerId" class="control-label"></label>
+                <select asp-for="WinningPlayerId" class="form-control" asp-items="ViewBag.Users" onchange="onUserChange(WinningPlayerId, WinningDeckId)">
+                    <option value="">&lt;Required&gt;</option>
+                </select>
+                <span asp-validation-for="WinningPlayerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WinningDeckId" class="control-label"></label>
+                <select asp-for="WinningDeckId" class="form-control">
+                    <option value="">&lt;Required&gt;</option>
+                </select>
+                <span asp-validation-for="WinningDeckId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="LosingPlayerId" class="control-label"></label>
+                <select asp-for="LosingPlayerId" class="form-control" asp-items="ViewBag.Users" onchange="onUserChange(LosingPlayerId, LosingDeckId)">
+                    <option value="">&lt;Required&gt;</option>
+                </select>
+                <span asp-validation-for="LosingPlayerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LosingDeckId" class="control-label"></label>
+                <select asp-for="LosingDeckId" class="form-control">
+                    <option value="">&lt;Required&gt;</option>
+                </select>
+                <span asp-validation-for="LosingDeckId" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+<script type="text/javascript">
+
+    function onUserChange(userDropdown, deckDropdown) {
+        removeOptions(deckDropdown);
+
+        var url = '@Url.Content("~/")' + "Decks/GetDecks"
+        $.getJSON(url, { userId: userDropdown.value }, function (data) {
+            $.each(data, function (i, deck) {
+                deckDropdown.add(new Option(deck.text, deck.value))
+            })
+        });
+    }
+
+    function removeOptions(selectbox)
+    {
+        var i;
+        for(i = selectbox.options.length - 1 ; i > 0 ; i--)
+        {
+            selectbox.remove(i);
+        }
+    }
+
+</script>

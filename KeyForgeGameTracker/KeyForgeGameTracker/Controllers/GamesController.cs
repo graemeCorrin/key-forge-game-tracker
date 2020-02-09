@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KeyForgeGameTracker.Data;
 using KeyForgeGameTracker.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KeyForgeGameTracker.Controllers
 {
@@ -19,7 +20,15 @@ namespace KeyForgeGameTracker.Controllers
         // GET: Games
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Game.ToListAsync());
+            var games = await _context.Game
+                .Include(x => x.WinningPlayer)
+                .Include(x => x.LosingPlayer)
+                .Include(x => x.WinningDeck)
+                .Include(x => x.LosingDeck)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return View(games);
         }
 
         // GET: Games/Details/5
@@ -41,8 +50,14 @@ namespace KeyForgeGameTracker.Controllers
         }
 
         // GET: Games/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            var users = await _context.Users
+                .AsNoTracking()
+                .ToListAsync();
+            
+            ViewBag.users = new SelectList(users, "Id", "FullName");
+
             return View();
         }
 
@@ -51,7 +66,7 @@ namespace KeyForgeGameTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GameDate,Comments,Swap,Id,CreatedDate,UpdatedDate,UpdatedBy,CreatedBy")] Game game)
+        public async Task<IActionResult> Create([Bind("GameDate,Comments,Swap,Id,WinningPlayerId,LosingPlayerId,WinningDeckId,LosingDeckId")] Game game)
         {
             if (ModelState.IsValid)
             {

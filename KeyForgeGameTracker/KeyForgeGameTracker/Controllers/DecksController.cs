@@ -6,6 +6,7 @@ using KeyForgeGameTracker.Models;
 using KeyForgeGameTracker.Data;
 using KeyForgeGameTracker.Services;
 using KeyForgeGameTracker.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KeyForgeGameTracker.Controllers
 {
@@ -183,6 +184,12 @@ namespace KeyForgeGameTracker.Controllers
             _context.Deck.Remove(deck);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> GetDecks(int userId)
+        {
+            var decks = await _context.Deck.Where(x => x.AppUserId == userId).ToListAsync();
+            return Json(new SelectList(decks, "Id", "Name"));
         }
 
         private bool DeckExists(int id)

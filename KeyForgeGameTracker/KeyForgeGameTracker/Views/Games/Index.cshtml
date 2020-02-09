@@ -17,22 +17,16 @@
                 @Html.DisplayNameFor(model => model.GameDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comments)
+                @Html.DisplayNameFor(model => model.WinningPlayer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Swap)
+                @Html.DisplayNameFor(model => model.WinningDeck)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                @Html.DisplayNameFor(model => model.LosingPlayer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
+                @Html.DisplayNameFor(model => model.LosingDeck)
             </th>
             <th></th>
         </tr>
@@ -44,22 +38,16 @@
                 @Html.DisplayFor(modelItem => item.GameDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Comments)
+                @Html.DisplayFor(modelItem => item.WinningPlayer.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Swap)
+                @Html.DisplayFor(modelItem => item.WinningDeck.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
+                @Html.DisplayFor(modelItem => item.LosingPlayer.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UpdatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
+                @Html.DisplayFor(modelItem => item.LosingDeck.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
