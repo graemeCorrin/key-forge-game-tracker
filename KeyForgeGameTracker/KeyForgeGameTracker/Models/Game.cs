@@ -7,6 +7,10 @@ namespace KeyForgeGameTracker.Models
 {
     public class Game : KfgtTable
     {
+        [Required]
+        [Display(Name = "Game Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime GameDate { get; set; }
 
         public string Comments { get; set; }
@@ -14,6 +18,7 @@ namespace KeyForgeGameTracker.Models
         public bool Swap { get; set; }
 
 
+        [Required]
         [Display(Name = "Winning Player")]
         public int? WinningPlayerId { get; set; }
 
@@ -21,6 +26,7 @@ namespace KeyForgeGameTracker.Models
         public AppUser WinningPlayer { get; set; }
 
 
+        [Required]
         [Display(Name = "Losing Player")]
         public int? LosingPlayerId { get; set; }
 
@@ -28,6 +34,7 @@ namespace KeyForgeGameTracker.Models
         public AppUser LosingPlayer { get; set; }
 
 
+        [Required]
         [Display(Name = "Winning Deck")]
         public int? WinningDeckId { get; set; }
 
@@ -35,6 +42,7 @@ namespace KeyForgeGameTracker.Models
         public Deck WinningDeck { get; set; }
 
 
+        [Required]
         [Display(Name = "Losing Deck")]
         public int? LosingDeckId { get; set; }
 

@@ -52,12 +52,7 @@ namespace KeyForgeGameTracker.Controllers
         // GET: Games/Create
         public async Task<IActionResult> CreateAsync()
         {
-            var users = await _context.Users
-                .AsNoTracking()
-                .ToListAsync();
-            
-            ViewBag.users = new SelectList(users, "Id", "FullName");
-
+            await PopulateViewBagAsync();
             return View();
         }
 
@@ -74,6 +69,8 @@ namespace KeyForgeGameTracker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            await PopulateViewBagAsync();
             return View(game);
         }
 
@@ -90,6 +87,8 @@ namespace KeyForgeGameTracker.Controllers
             {
                 return NotFound();
             }
+
+            await PopulateViewBagAsync();
             return View(game);
         }
 
@@ -125,6 +124,8 @@ namespace KeyForgeGameTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            await PopulateViewBagAsync();
             return View(game);
         }
 
@@ -160,6 +161,15 @@ namespace KeyForgeGameTracker.Controllers
         private bool GameExists(int id)
         {
             return _context.Game.Any(e => e.Id == id);
+        }
+
+        private async Task PopulateViewBagAsync()
+        {
+            var users = await _context.Users
+                .AsNoTracking()
+                .ToListAsync();
+
+            ViewBag.users = new SelectList(users, "Id", "FullName");
         }
     }
 }
