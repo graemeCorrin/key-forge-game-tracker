@@ -11,22 +11,35 @@
                 <div class="dropdown">
 
                     <a href="#" class="nav-link text-light font-weight-bold" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <partial name="Icons/User" />
                         @((await UserManager.GetUserAsync(User)).FirstName) @((await UserManager.GetUserAsync(User)).LastName)
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">User Profile</a>
-                        <button type="submit" class="btn btn-link navbar-btn navbar-link dropdown-item">Logout</button>
-                    </div>
-                </div>
-            </li>
+                        <a class="dropdown-item" asp-area="" asp-controller="Decks" asp-action="Index">View Profile</a>
+                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a>
 
-        </ul>
+                        @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Role.Admin))
+                        {
+                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Admin/Index">User Management</a>
+                        }
+
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link dropdown-item">Logout</button>
+                        </div>
+                        </div>
+                        </li>
+
+                    </ul>
     </form>
 }
 else
 {
     <ul class="navbar-nav navbar-right">
-        <li><a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+        <li>
+            <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Login">
+                <partial name="Icons/User" />
+                Login
+            </a>
+        </li>
     </ul>
 }

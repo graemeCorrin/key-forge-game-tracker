@@ -1,35 +1,44 @@
 ﻿@inject UserManager<AppUser> UserManager
 
 <header>
-    <nav id="top-navbar" class="header-site fixed-top navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site-logo" src="@Constants.LogoPath"> </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+    <div class="header-site fixed-top">
+        <nav id="top-navbar" class="fixed-top navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
 
-            <partial name="_LoginPartial" />
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site-logo" src="@Constants.LogoPath"> </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
-            <ul class="navbar-nav flex-grow-1">
+                <partial name="_LoginPartial" />
 
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-light font-weight-bold" asp-area="" asp-controller="Decks" asp-action="Index">My Decks</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light font-weight-bold" asp-area="" asp-controller="Games" asp-action="Index">My Games</a>
-                    </li>
-                    @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), Role.Admin))
+                <ul class="navbar-nav">
+
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-light font-weight-bold" asp-area="Identity" asp-page="/Account/Admin/Index">User Management</a>
+                            <a class="nav-link text-light font-weight-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                                <partial name="Icons/Friend" />
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light font-weight-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                                <partial name="Icons/Message" />
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light font-weight-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                                <partial name="Icons/Notification" />
+                            </a>
                         </li>
                     }
-                }
-            </ul>
+                </ul>
 
-        </div>
-    </nav>
+            </div>
+
+
+
+        </nav>
+    </div>
 </header>

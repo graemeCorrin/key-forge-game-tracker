@@ -3,8 +3,8 @@ namespace KeyForgeGameTracker.Util
 {
     public class Constants
     {
-        public const string SiteFormal = "MY Sample Website";
-        public const string SiteAbbreviation = "MSW";
+        public const string SiteFormal = "KeyForge Game Tracker";
+        public const string SiteAbbreviation = "KFGT";
 
         public const string LogoPath = "/img/keyforge_logo.png";
 
